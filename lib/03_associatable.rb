@@ -51,6 +51,7 @@ module Associatable
   # Phase IIIb
   def belongs_to(name, options = {})
     options = BelongsToOptions.new(name, options)
+    assoc_options[name.to_sym] = options
 
     define_method("#{name}") do
       foreign_key = self.send(options.foreign_key)
@@ -95,7 +96,7 @@ module Associatable
   end
 
   def assoc_options
-    # Wait to implement this in Phase IVa. Modify `belongs_to`, too.
+    @assoc_options ||= {}
   end
 end
 
